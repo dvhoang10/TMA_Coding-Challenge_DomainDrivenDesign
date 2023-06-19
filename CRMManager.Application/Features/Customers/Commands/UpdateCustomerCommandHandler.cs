@@ -16,6 +16,7 @@ namespace CRMManager.Application.Features.Customers.Commands
         public async Task Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
             var customer = await _customerRepository.GetByIdAsync(CustomerId.Create(request.Id));
+
             if (customer != null)
             {
                 customer.SetName(request.Name);

@@ -38,7 +38,7 @@ namespace CRMManager.Infrastructure.Persistence.Repositories
 
         public async Task DeleteAsync(CustomerId id)
         {
-            var customer = await _context.Customers.Where(c => c.Id == id).FirstOrDefaultAsync();
+            var customer = await _context.Customers.Where(customer => customer.Id == id).FirstOrDefaultAsync();
             if (customer != null)
             {
                 _context.Remove(customer);
