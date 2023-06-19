@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Mapster;
+using MapsterMapper;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace CRMManager.Application
@@ -8,6 +10,12 @@ namespace CRMManager.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+            // config Mapter
+            var config = TypeAdapterConfig.GlobalSettings;
+            config.Scan(Assembly.GetExecutingAssembly());
+            services.AddSingleton(config);
+            services.AddScoped<IMapper, ServiceMapper>();
 
             return services;
         }

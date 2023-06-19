@@ -1,5 +1,7 @@
-﻿using CRMManager.Application.Features.Customers.Commands;
+﻿using CRMMager.Contracts.Requests.Customer;
+using CRMManager.Application.Features.Customers.Commands;
 using CRMManager.Application.Features.Customers.Queries;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +12,12 @@ namespace CRMManager.Api.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public CustomerController(IMediator mediator)
+        public CustomerController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -26,12 +30,11 @@ namespace CRMManager.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCustomer(string name, string taxNumber, string street)
+        public async Task<IActionResult> CreateCustomer(CreateCustomerRequest createCustomerRequest)
         {
-            var command = new CreateCustomerCommand(name, taxNumber, street);
+            var command = _mapper.Map<CreateCustomerCommand>(createCustomerRequest);
             await _mediator.Send(command);
             return Ok();
         }
-
     }
 }
