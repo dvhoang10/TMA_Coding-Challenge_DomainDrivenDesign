@@ -29,6 +29,14 @@ namespace CRMManager.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var query = _mapper.Map<GetCustomerByIdQuery>(id);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCustomer(CreateCustomerRequest createCustomerRequest)
         {
@@ -45,7 +53,7 @@ namespace CRMManager.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var command = _mapper.Map<DeleteCustomerCommand>(id);

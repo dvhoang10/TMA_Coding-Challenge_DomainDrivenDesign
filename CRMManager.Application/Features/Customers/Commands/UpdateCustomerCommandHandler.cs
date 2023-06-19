@@ -7,11 +7,12 @@ namespace CRMManager.Application.Features.Customers.Commands
     public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand>
     {
         private readonly ICustomerRepository _customerRepository;
+
         public UpdateCustomerCommandHandler(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
-
         }
+
         public async Task Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
             var customer = await _customerRepository.GetByIdAsync(CustomerId.Create(request.Id));
