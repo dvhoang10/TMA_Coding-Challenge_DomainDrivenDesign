@@ -36,5 +36,21 @@ namespace CRMManager.Api.Controllers
             await _mediator.Send(command);
             return Ok();
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateCustomer(UpdateCustomerRequest updateCustomerRequest)
+        {
+            var command = _mapper.Map<UpdateCustomerCommand>(updateCustomerRequest);
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        [HttpDelete("id")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var command = _mapper.Map<DeleteCustomerCommand>(id);
+            await _mediator.Send(command);
+            return Ok();
+        }
     }
 }

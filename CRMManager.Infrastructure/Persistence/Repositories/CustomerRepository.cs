@@ -24,5 +24,26 @@ namespace CRMManager.Infrastructure.Persistence.Repositories
         {
             return await _context.Customers.AsNoTracking().ToListAsync();
         }
+
+        public async Task<Customer?> GetByIdAsync(CustomerId id)
+        {
+            return await _context.Customers.Where(customer => customer.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateAsync(Customer entity)
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(CustomerId id)
+        {
+            var customer = await _context.Customers.Where(c => c.Id == id).FirstOrDefaultAsync();
+            if (customer != null)
+            {
+                _context.Remove(customer);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

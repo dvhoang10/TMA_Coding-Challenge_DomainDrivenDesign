@@ -19,10 +19,24 @@ namespace CRMManager.Domain.Aggregates.CustomerAggregate
             TaxNumber = taxNumber;
             Street = street;
         }
-
         public static Customer Create(string name, string taxNumber, string street)
         {
             return new Customer(name, taxNumber, street);
+        }
+
+        public void SetStreet(string street)
+        {
+            Street = street;
+        }
+
+        public void SetName(string name)
+        {
+            Name = name;
+        }
+
+        public void SetTaxNumber(string taxNumber)
+        {
+            TaxNumber = taxNumber;
         }
     }
 }
