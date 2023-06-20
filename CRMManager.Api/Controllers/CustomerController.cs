@@ -30,10 +30,13 @@ namespace CRMManager.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetCustomerById(int id)
         {
             var query = _mapper.Map<GetCustomerByIdQuery>(id);
             var result = await _mediator.Send(query);
+
+            if (result == null) return NotFound();
+
             return Ok(result);
         }
 
@@ -41,24 +44,33 @@ namespace CRMManager.Api.Controllers
         public async Task<IActionResult> CreateCustomer(CreateCustomerRequest createCustomerRequest)
         {
             var command = _mapper.Map<CreateCustomerCommand>(createCustomerRequest);
-            await _mediator.Send(command);
-            return Ok();
+            var result = await _mediator.Send(command);
+
+            if (result == null) return NotFound();
+
+            return Ok(result);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateCustomer(UpdateCustomerRequest updateCustomerRequest)
         {
             var command = _mapper.Map<UpdateCustomerCommand>(updateCustomerRequest);
-            await _mediator.Send(command);
-            return Ok();
+            var result = await _mediator.Send(command);
+
+            if (result == null) return NotFound();
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
             var command = _mapper.Map<DeleteCustomerCommand>(id);
-            await _mediator.Send(command);
-            return Ok();
+            var result = await _mediator.Send(command);
+
+            if (result == null) return NotFound();
+
+            return Ok(result);
         }
     }
 }

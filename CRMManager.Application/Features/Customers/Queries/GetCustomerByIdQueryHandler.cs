@@ -17,9 +17,12 @@ namespace CRMManager.Application.Features.Customers.Queries
             _mapper = mapper;
         }
 
-        public async Task<CustomerDto> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
+        public async Task<CustomerDto?> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
         {
             var customer = await _customerRepository.GetByIdAsync(CustomerId.Create(request.Id));
+
+            if (customer == null) return null;
+
             return _mapper.Map<CustomerDto>(customer);
         }
     }

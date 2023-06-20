@@ -1,11 +1,7 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CRMManager.Application.Features.Customers.Dtos;
+using MediatR;
 
 namespace CRMManager.Application.Features.Customers.Commands
 {
-    public record DeleteCustomerCommand(int Id) : IRequest;
+    public record DeleteCustomerCommand(int Id) : IRequest<CustomerDto>;
 }

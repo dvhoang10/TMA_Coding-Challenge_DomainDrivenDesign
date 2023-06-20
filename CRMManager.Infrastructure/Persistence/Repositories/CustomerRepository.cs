@@ -36,14 +36,14 @@ namespace CRMManager.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(CustomerId id)
+        public async Task<Customer?> DeleteAsync(CustomerId id)
         {
             var customer = await _context.Customers.Where(customer => customer.Id == id).FirstOrDefaultAsync();
-            if (customer != null)
-            {
-                _context.Remove(customer);
-                await _context.SaveChangesAsync();
-            }
+
+            _context.Remove(customer);
+            await _context.SaveChangesAsync();
+
+            return customer;
         }
     }
 }
